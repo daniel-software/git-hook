@@ -3,7 +3,7 @@
 remote="$1"
 url="$2"
 
-jenkins_server=localhost
+jenkins_server=tpc-len803
 z40=0000000000000000000000000000000000000000
 
 IFS=' '
@@ -15,7 +15,7 @@ do
 		:
 	else
 		REMOTE=$(git config remote.origin.url | sed 's/.*[:\/]//g' | sed 's/-.*//g')
-		CMD="http://${jenkins_server}:8080/job/${REMOTE}_Build/build?delay=7sec"
+		CMD="http://${jenkins_server}:8080/job/${REMOTE}_Build/build?delay=7sec&token=we-love-peaple"
 		curl --silent --show-error ${CMD} &
 		echo "request jenkins '${REMOTE}' build run. lazy 7 sec..."
 	fi
