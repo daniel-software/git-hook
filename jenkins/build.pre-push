@@ -9,16 +9,23 @@ z40=0000000000000000000000000000000000000000
 IFS=' '
 while read local_ref local_sha remote_ref remote_sha
 do
-	if [ "$local_sha" = $z40 ]
-	then
-		# Handle delete
-		:
-	else
-		REMOTE=$(git config remote.origin.url | sed 's/.*[:\/]//g' | sed 's/-.*//g')
-		CMD="http://${jenkins_server}:8080/job/${REMOTE}_Build/build?delay=7sec&token=we-love-peaple"
-		curl --silent --show-error ${CMD} &
-		echo "request jenkins '${REMOTE}' build run. lazy 7 sec..."
-	fi
+	case $remote_ref in
+		refs/tags/*)
+			# Tag
+			;;
+		*)
+			if [ "$local_sha" = $z40 ]
+			then
+				# Handle delete
+				:
+			else
+				REMOTE=$(git config remote.origin.url | sed 's/.*[:\/]//g' | sed 's/-.*//g')
+				CMD="http://${jenkins_server}:8080/job/${REMOTE}_Build/build?delay=7sec&token=we-love-peaple"
+				curl --silent --show-error ${CMD} &
+				echo "request jenkins '${REMOTE}' build run. lazy 7 sec..."
+			fi
+		;;
+	esac
 done
 
 exit 0
