@@ -6,5 +6,5 @@ target=https://raw.githubusercontent.com/daniel-software/git-hook/tpc-len803/jen
 curl $target -o "$toplevel/.git/hooks/pre-push"
 
 if [ -e "$toplevel/.git/modules" ]; then
-	ls "$toplevel/.git/modules" | xargs --no-run-if-empty -I_SUBMODULE_ curl $target -o "$toplevel/.git/modules/_SUBMODULE_/hooks/pre-push"
+	ls "$toplevel/.git/modules" | xargs --no-run-if-empty -i curl $target -o "$toplevel/.git/modules/{}/hooks/pre-push"
 fi
