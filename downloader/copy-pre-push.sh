@@ -1,7 +1,7 @@
 #!/bin/bash
 
 toplevel=$(git rev-parse --show-toplevel)
-target=https://raw.githubusercontent.com/daniel-software/git-hook/tpc-len803/jenkins/build.pre-push
+target=https://raw.githubusercontent.com/daniel-software/git-hook/tpc-len2203/jenkins/build.pre-push
 
 curl $target -o "$toplevel/.git/hooks/pre-push"
 
